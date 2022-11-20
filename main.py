@@ -5,6 +5,8 @@ import sys
 
 from logging.handlers import RotatingFileHandler
 
+from configuration.configuration import ProgramConfiguration
+
 # the configuration file name
 CONFIG_FILE = "settings.ini"
 
@@ -26,10 +28,11 @@ def prepare_logs():
 if __name__ == '__main__':
     prepare_logs()
 
-    logger.info("Data collector has been started")
+    logger.info("Program has been started")
 
     try:
-        pass
+        config = ProgramConfiguration(CONFIG_FILE)
+        logger.info("Configuration has been loaded")
 
     except Exception as ex:
         logger.error(f"Error has been occurred: {repr(ex)}")
