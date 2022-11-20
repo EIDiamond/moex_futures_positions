@@ -6,6 +6,7 @@ import sys
 from logging.handlers import RotatingFileHandler
 
 from configuration.configuration import ProgramConfiguration
+from data_collector.data_collector_factory import DataCollectorFactory
 
 # the configuration file name
 CONFIG_FILE = "settings.ini"
@@ -34,7 +35,10 @@ if __name__ == '__main__':
         config = ProgramConfiguration(CONFIG_FILE)
         logger.info("Configuration has been loaded")
 
+        collector = DataCollectorFactory.new_factory(config.data_collection_settings.type)
+        logger.info("Collector has been loaded")
+
     except Exception as ex:
         logger.error(f"Error has been occurred: {repr(ex)}")
 
-    logger.info("Data collector has been finished.")
+    logger.info("Program has been finished.")
