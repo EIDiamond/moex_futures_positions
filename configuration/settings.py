@@ -11,8 +11,9 @@ class DataCollectionSettings:
 
 @dataclass(eq=False, repr=True)
 class DataCollectionRetrySettings:
-    internal_sec: int
+    interval_sec: int
     count: int
+    delay_sec: int
 
 
 @dataclass(eq=False, repr=True)

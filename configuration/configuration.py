@@ -20,8 +20,9 @@ class ProgramConfiguration:
         )
 
         self.__data_collection_retry_settings = DataCollectionRetrySettings(
-            internal_sec=int(config["DATA_COLLECTION_RETRY"]["RETRY_INTERVAL_SEC"]),
-            count=int(config["DATA_COLLECTION_RETRY"]["RETRY_INTERVAL_COUNT"])
+            interval_sec=int(config["DATA_COLLECTION_SETTINGS"]["RETRY_INTERVAL_SEC"]),
+            count=int(config["DATA_COLLECTION_SETTINGS"]["RETRY_INTERVAL_COUNT"]),
+            delay_sec=int(config["DATA_COLLECTION_SETTINGS"]["DELAY_SEC"])
         )
 
         self.__storage_settings = StorageSettings(
