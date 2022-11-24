@@ -1,12 +1,11 @@
-import asyncio
 import logging
 import os
-import sys
 
 from logging.handlers import RotatingFileHandler
 
 from configuration.configuration import ProgramConfiguration
 from data_collector.data_collector_factory import DataCollectorFactory
+from data_reader.data_reader_factory import DataReaderFactory
 
 # the configuration file name
 CONFIG_FILE = "settings.ini"
@@ -40,6 +39,9 @@ if __name__ == '__main__':
             config.data_collection_retry_settings
         )
         logger.info("Collector has been loaded")
+
+        reader = DataReaderFactory.new_factory(collector, config.storage_settings)
+        logger.info("Reader has been loaded")
 
     except Exception as ex:
         logger.error(f"Error has been occurred: {repr(ex)}")
