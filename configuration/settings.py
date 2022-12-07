@@ -1,3 +1,4 @@
+import datetime
 from dataclasses import dataclass
 
 __all__ = ("DataCollectionRetrySettings", "StorageSettings", "DataCollectionSettings")
@@ -7,6 +8,7 @@ __all__ = ("DataCollectionRetrySettings", "StorageSettings", "DataCollectionSett
 class DataCollectionSettings:
     type: str
     contract: str
+    date:  datetime.date
 
 
 @dataclass(eq=False, repr=True)

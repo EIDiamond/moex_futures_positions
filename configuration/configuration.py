@@ -1,3 +1,4 @@
+import datetime
 from configparser import ConfigParser
 
 from configuration.settings import DataCollectionRetrySettings, StorageSettings, DataCollectionSettings
@@ -16,7 +17,12 @@ class ProgramConfiguration:
 
         self.__data_collection_settings = DataCollectionSettings(
             type=config["DATA_COLLECTION"]["TYPE"],
-            contract=config["DATA_COLLECTION"]["CONTRACT"]
+            contract=config["DATA_COLLECTION"]["CONTRACT"],
+            date=datetime.date(
+                year=int(config["DATA_COLLECTION"]["YEAR"]),
+                month=int(config["DATA_COLLECTION"]["MONTH"]),
+                day=int(config["DATA_COLLECTION"]["DAY"])
+            )
         )
 
         self.__data_collection_retry_settings = DataCollectionRetrySettings(

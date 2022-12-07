@@ -39,6 +39,19 @@ if __name__ == '__main__':
         )
         logger.info("Collector has been loaded")
 
+        try:
+            logger.info(f"Start collect contract: {config.data_collection_settings.contract};"
+                        f" date: {config.data_collection_settings.date}")
+
+            result = collector.download(
+                config.data_collection_settings.date,
+                config.data_collection_settings.contract
+            )
+
+            logger.info(f"Collect results: {result}")
+        except Exception as ex:
+            logger.error(f"Collect error has been occurred: {repr(ex)}")
+
     except Exception as ex:
         logger.error(f"Error has been occurred: {repr(ex)}")
 
