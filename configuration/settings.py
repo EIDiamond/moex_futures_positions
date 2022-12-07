@@ -1,7 +1,7 @@
 import datetime
 from dataclasses import dataclass
 
-__all__ = ("DataCollectionRetrySettings", "StorageSettings", "DataCollectionSettings")
+__all__ = ("DataCollectionRetrySettings", "DataCollectionSettings")
 
 
 @dataclass(eq=False, repr=True)
@@ -16,8 +16,3 @@ class DataCollectionRetrySettings:
     interval_sec: int
     count: int
     delay_sec: int
-
-
-@dataclass(eq=False, repr=True)
-class StorageSettings:
-    root_path: str

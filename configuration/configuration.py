@@ -1,7 +1,7 @@
 import datetime
 from configparser import ConfigParser
 
-from configuration.settings import DataCollectionRetrySettings, StorageSettings, DataCollectionSettings
+from configuration.settings import DataCollectionRetrySettings, DataCollectionSettings
 
 __all__ = ("ProgramConfiguration")
 
@@ -31,10 +31,6 @@ class ProgramConfiguration:
             delay_sec=int(config["DATA_COLLECTION_SETTINGS"]["DELAY_SEC"])
         )
 
-        self.__storage_settings = StorageSettings(
-            root_path=config["STORAGE"]["ROOT_PATH"]
-        )
-
     @property
     def data_collection_settings(self) -> DataCollectionSettings:
         return self.__data_collection_settings
@@ -42,7 +38,3 @@ class ProgramConfiguration:
     @property
     def data_collection_retry_settings(self) -> DataCollectionRetrySettings:
         return self.__data_collection_retry_settings
-
-    @property
-    def storage_settings(self) -> StorageSettings:
-        return self.__storage_settings
