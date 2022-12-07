@@ -15,4 +15,3 @@ class DataCollectionSettings:
 class DataCollectionRetrySettings:
     interval_sec: int
     count: int
-    delay_sec: int

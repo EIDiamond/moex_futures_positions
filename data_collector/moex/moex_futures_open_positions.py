@@ -1,8 +1,10 @@
 import datetime
 import logging
+import time
 from typing import Optional
 
 import requests
+from requests import Response
 
 from configuration.settings import DataCollectionRetrySettings
 from data_collector.base_data_collector import IDataCollector
@@ -19,12 +21,10 @@ class MOEXFuturesPositionsCollector(IDataCollector):
 
     def download(self, date: datetime.date, contract: str) -> Optional[OpenPositions]:
         try:
-            r = requests.get(f"https://www.moex.com/api/contract/OpenOptionService/{date.day}.{date.month}.{date.year}/F/{contract}/json")
+            request = self.__send_request(date, contract)
 
-            logger.info(f"Status code: {r.status_code}")
-
-            if r.status_code == 200:
-                result = r.json()
+            if request and request.status_code == 200:
+                result = request.json()
 
                 logger.info(f"Json result: {result}")
                 """
@@ -61,4 +61,25 @@ class MOEXFuturesPositionsCollector(IDataCollector):
 
         return None
 
+    def __send_request(self, date: datetime.date, contract: str) -> Optional[Response]:
+        attempts = 0
 
+        while attempts < self.__retry_settings.count:
+            attempts += 1
+
+            try:
+                r = requests.get(
+                    f"https://www.moex.com/api/contract/OpenOptionService/{date.day}.{date.month}.{date.year}/F/{contract}/json"
+                )
+
+                logger.info(f"Status code: {r.status_code}")
+                if r.status_code == 200:
+                    return r
+
+                logger.info(f"Waiting next try ...")
+                time.sleep(self.__retry_settings.interval_sec)
+
+            except Exception as ex:
+                logger.error(f"Retry exception attempt: {attempts}: {repr(ex)}")
+
+        return None

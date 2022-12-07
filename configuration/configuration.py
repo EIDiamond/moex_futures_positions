@@ -27,8 +27,7 @@ class ProgramConfiguration:
 
         self.__data_collection_retry_settings = DataCollectionRetrySettings(
             interval_sec=int(config["DATA_COLLECTION_SETTINGS"]["RETRY_INTERVAL_SEC"]),
-            count=int(config["DATA_COLLECTION_SETTINGS"]["RETRY_INTERVAL_COUNT"]),
-            delay_sec=int(config["DATA_COLLECTION_SETTINGS"]["DELAY_SEC"])
+            count=int(config["DATA_COLLECTION_SETTINGS"]["RETRY_INTERVAL_COUNT"])
         )
 
     @property
