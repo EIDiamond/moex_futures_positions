@@ -33,6 +33,11 @@ if __name__ == '__main__':
         config = ProgramConfiguration(CONFIG_FILE)
         logger.info("Configuration has been loaded")
 
+        logger.info(f"Start collect contract: {config.data_collection_settings.contract};"
+                    f" date: {config.data_collection_settings.date};"
+                    f" retry settings: {config.data_collection_retry_settings};"
+                    f" collector type: {config.data_collection_settings.type}")
+
         collector = DataCollectorFactory.new_factory(
             config.data_collection_settings.type,
             config.data_collection_retry_settings
@@ -40,9 +45,6 @@ if __name__ == '__main__':
         logger.info("Collector has been loaded")
 
         try:
-            logger.info(f"Start collect contract: {config.data_collection_settings.contract};"
-                        f" date: {config.data_collection_settings.date}")
-
             result = collector.download(
                 config.data_collection_settings.date,
                 config.data_collection_settings.contract
