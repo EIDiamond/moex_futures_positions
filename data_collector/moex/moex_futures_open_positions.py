@@ -54,7 +54,7 @@ class MOEXFuturesPositionsCollector(IDataCollector):
                         )
                     )
                 else:
-                    logger.info("Different dates was detected. Stop result parsing...")
+                    logger.info("Different dates were detected. Stop result parsing...")
 
         except Exception as ex:
             logger.error(f"Collect error has been occurred: {repr(ex)}")
