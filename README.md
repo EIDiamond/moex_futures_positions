@@ -6,7 +6,7 @@ Downloading the following information from MOEX Exchange:
 - Total count of open long and short positions by type of traders (Juridical or Physical).  
 - Total count of traders by type Juridical or Physical.  
 
-## Before Start
+## Start
 ### Dependencies
 - [Requests project](https://pypi.org/project/requests/)
 <!-- termynal -->
