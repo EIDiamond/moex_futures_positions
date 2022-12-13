@@ -69,6 +69,8 @@ if __name__ == '__main__':
             )
 
             logger.info(f"Collect results: {result}")
+            print(f"Collect results:")
+            print(f"{result}")
         except Exception as ex:
             logger.error(f"Collect error has been occurred: {repr(ex)}")
 
