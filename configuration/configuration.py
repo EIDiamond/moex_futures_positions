@@ -10,18 +10,25 @@ class ProgramConfiguration:
     """
     Represent configuration
     """
-    def __init__(self, file_name: str) -> None:
+    def __init__(
+            self,
+            configuration_file_name: str,
+            arg_contract: str = "",
+            arg_day: int = 0,
+            arg_month: int = 0,
+            arg_year: int = 0
+    ) -> None:
         # classic ini file
         config = ConfigParser()
-        config.read(file_name)
+        config.read(configuration_file_name)
 
         self.__data_collection_settings = DataCollectionSettings(
             type=config["DATA_COLLECTION"]["TYPE"],
-            contract=config["DATA_COLLECTION"]["CONTRACT"],
+            contract=arg_contract if arg_contract else config["DATA_COLLECTION"]["CONTRACT"],
             date=datetime.date(
-                year=int(config["DATA_COLLECTION"]["YEAR"]),
-                month=int(config["DATA_COLLECTION"]["MONTH"]),
-                day=int(config["DATA_COLLECTION"]["DAY"])
+                year=arg_year if arg_year else int(config["DATA_COLLECTION"]["YEAR"]),
+                month=arg_month if arg_month else int(config["DATA_COLLECTION"]["MONTH"]),
+                day=arg_day if arg_day else int(config["DATA_COLLECTION"]["DAY"])
             )
         )
 

@@ -1,5 +1,7 @@
 import logging
 import os
+import sys
+import argparse
 
 from logging.handlers import RotatingFileHandler
 
@@ -29,8 +31,24 @@ if __name__ == '__main__':
 
     logger.info("Program has been started")
 
+    logger.info(f"Program arguments: {sys.argv}")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--contract", help="futures contract name", type=str, default="")
+    parser.add_argument("--day", help="day of requesting date", type=int, default="0")
+    parser.add_argument("--month", help="month of requesting date", type=int, default="0")
+    parser.add_argument("--year", help="year of requesting date", type=int, default="0")
+    args = parser.parse_args()
+
+    logger.info(f"Parsed arguments: {args}")
+
     try:
-        config = ProgramConfiguration(CONFIG_FILE)
+        config = ProgramConfiguration(
+            CONFIG_FILE,
+            arg_contract=args.contract,
+            arg_day=args.day,
+            arg_month=args.month,
+            arg_year=args.year
+        )
         logger.info("Configuration has been loaded")
 
         logger.info(f"Start collect contract: {config.data_collection_settings.contract};"

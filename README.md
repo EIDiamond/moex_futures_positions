@@ -18,11 +18,21 @@ $ pip install requests
 1. Open [settings.ini](settings.ini) file
 2. Specify futures contract name `CONTRACT` (section `DATA_COLLECTION`)
 3. Specify requesting date: `DAY`, `MONTH`, `YEAR` (section `DATA_COLLECTION`)
+4. Run main.py
 
-### Run
-Recommendation is to use python 3.10. 
+or specify the same information via command line arguments:
 
-Run main.py
+`--contract` futures contract name
+
+`--day` day of requesting date
+
+`--month` month of requesting date
+
+`--year` year of requesting date
+
+
+### Tested environments
+Recommendation is to use python 3.10 or more. 
 
 ## Configuration
 Configuration can be specified via [settings.ini](settings.ini) file.
