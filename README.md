@@ -58,5 +58,16 @@ trading ideas or strategies, ML purposes etc.
 All logs are written in logs/collector.log.
 Any kind of settings can be changed in main.py code
 
+## Docker
+The Dockerfile is [here](Dockerfile).
+
+Run example: 
+
+sudo docker run -i image_name:tag --contract=RTS --day=1 --month=12 --year=2022 
+
+
+## Project change log
+[Here](CHANGELOG.md)
+
 ## Disclaimer
 The author is not responsible for any errors or omissions, or for the trade results obtained from the use of this tool. 
