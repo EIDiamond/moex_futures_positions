@@ -1,7 +1,7 @@
 import datetime
 import logging
 import time
-from typing import Optional
+from typing import Optional, Generator
 
 import requests
 from requests import Response
@@ -19,7 +19,32 @@ class MOEXFuturesPositionsCollector(IDataCollector):
     def __init__(self, retry_settings: DataCollectionRetrySettings):
         self.__retry_settings = retry_settings
 
-    def download(self, date: datetime.date, contract: str) -> Optional[OpenPositions]:
+    def download_range(
+            self,
+            date: datetime.date,
+            contract: str,
+            days_range: int
+    ) -> Generator[OpenPositions, None, None]:
+        yield self.download(date, contract)
+
+        current_day = date
+        target_day = date + datetime.timedelta(days=days_range)
+        day_step = 1 if days_range > 0 else -1
+
+        logger.info(f"Repeat steps. current_day: {current_day}, target_day: {target_day}, day_step: {day_step}")
+
+        while current_day != target_day:
+            logger.info(f"Repeat steps. Sleep {self.__retry_settings.delay_between_days_sec} secs")
+            time.sleep(self.__retry_settings.delay_between_days_sec)
+
+            current_day = current_day + datetime.timedelta(days=day_step)
+            logger.info(f"Repeat steps. New current_day: {current_day}")
+
+            yield self.download(current_day, contract)
+        else:
+            logger.info(f"Repeat steps. Exit!")
+
+    def download(self, date: datetime.date, contract: str) -> OpenPositions:
         try:
             request = self.__send_request(date, contract)
 
@@ -59,7 +84,7 @@ class MOEXFuturesPositionsCollector(IDataCollector):
         except Exception as ex:
             logger.error(f"Collect error has been occurred: {repr(ex)}")
 
-        return None
+        return OpenPositions(contract=contract, date=date, positions=None, clients=None)
 
     def __send_request(self, date: datetime.date, contract: str) -> Optional[Response]:
         attempts = 0

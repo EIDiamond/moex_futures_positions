@@ -16,7 +16,8 @@ class ProgramConfiguration:
             arg_contract: str = "",
             arg_day: int = 0,
             arg_month: int = 0,
-            arg_year: int = 0
+            arg_year: int = 0,
+            arg_range: int = 0
     ) -> None:
         # classic ini file
         config = ConfigParser()
@@ -29,12 +30,14 @@ class ProgramConfiguration:
                 year=arg_year if arg_year else int(config["DATA_COLLECTION"]["YEAR"]),
                 month=arg_month if arg_month else int(config["DATA_COLLECTION"]["MONTH"]),
                 day=arg_day if arg_day else int(config["DATA_COLLECTION"]["DAY"])
-            )
+            ),
+            days_range=arg_range if arg_range else int(config["DATA_COLLECTION"]["DAYS_RANGE"])
         )
 
         self.__data_collection_retry_settings = DataCollectionRetrySettings(
             interval_sec=int(config["DATA_COLLECTION_SETTINGS"]["RETRY_INTERVAL_SEC"]),
-            count=int(config["DATA_COLLECTION_SETTINGS"]["RETRY_INTERVAL_COUNT"])
+            count=int(config["DATA_COLLECTION_SETTINGS"]["RETRY_INTERVAL_COUNT"]),
+            delay_between_days_sec=int(config["DATA_COLLECTION_SETTINGS"]["DELAY_BETWEEN_DAY_REQUESTS_SEC"])
         )
 
     @property

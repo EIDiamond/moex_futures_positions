@@ -1,5 +1,6 @@
 import datetime
 from dataclasses import dataclass
+from typing import Optional
 
 __all__ = ("OpenPositions")
 
@@ -16,5 +17,5 @@ class OpenPosition:
 class OpenPositions:
     contract: str
     date: datetime.date
-    positions: OpenPosition
-    clients: OpenPosition
+    positions: Optional[OpenPosition]
+    clients: Optional[OpenPosition]

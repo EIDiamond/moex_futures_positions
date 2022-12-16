@@ -37,6 +37,7 @@ if __name__ == '__main__':
     parser.add_argument("--day", help="day of requesting date", type=int, default="0")
     parser.add_argument("--month", help="month of requesting date", type=int, default="0")
     parser.add_argument("--year", help="year of requesting date", type=int, default="0")
+    parser.add_argument("--range", help="period of days from requesting date", type=int, default="0")
     args = parser.parse_args()
 
     logger.info(f"Parsed arguments: {args}")
@@ -47,12 +48,14 @@ if __name__ == '__main__':
             arg_contract=args.contract,
             arg_day=args.day,
             arg_month=args.month,
-            arg_year=args.year
+            arg_year=args.year,
+            arg_range=args.range
         )
         logger.info("Configuration has been loaded")
 
         logger.info(f"Start collect contract: {config.data_collection_settings.contract};"
                     f" date: {config.data_collection_settings.date};"
+                    f" days range: {config.data_collection_settings.days_range};"
                     f" retry settings: {config.data_collection_retry_settings};"
                     f" collector type: {config.data_collection_settings.type}")
 
@@ -63,14 +66,16 @@ if __name__ == '__main__':
         logger.info("Collector has been loaded")
 
         try:
-            result = collector.download(
-                config.data_collection_settings.date,
-                config.data_collection_settings.contract
-            )
-
-            logger.info(f"Collect results: {result}")
+            logger.info(f"Collect results:")
             print(f"Collect results:")
-            print(f"{result}")
+
+            for result in collector.download_range(
+                config.data_collection_settings.date,
+                config.data_collection_settings.contract,
+                config.data_collection_settings.days_range
+            ):
+                logger.info(f"{result}")
+                print(f"{result}")
         except Exception as ex:
             logger.error(f"Collect error has been occurred: {repr(ex)}")
 
