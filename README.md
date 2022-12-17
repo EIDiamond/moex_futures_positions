@@ -4,7 +4,7 @@ Downloading tool for information about open positions of futures on MOEX Exchang
 ## Features
 Downloading the following information from MOEX Exchange:
 - Total count of open long and short positions by type of traders (Juridical or Physical).  
-- Total count of traders by type Juridical or Physical.  
+- Total count of traders by type Juridical or Physical.
 
 ## Start
 ### Dependencies
@@ -12,6 +12,11 @@ Downloading the following information from MOEX Exchange:
 <!-- termynal -->
 ```
 $ pip install requests
+```
+- [psycopg2 project](https://pypi.org/project/psycopg2/)
+<!-- termynal -->
+```
+$ pip install psycopg2
 ```
 
 ### Required configuration (minimal)
@@ -56,6 +61,18 @@ Specify interval in seconds between retry attempts `RETRY_INTERVAL_SEC`
 Specify count of retry attempts `RETRY_INTERVAL_COUNT`
 
 Specify interval in seconds between different days request `DELAY_BETWEEN_DAY_REQUESTS_SEC`
+
+### Section DATA_STORAGE_PG
+Enable or disable data storage by `ENABLED`. 0 is disabled, any no zero is enabled. 
+Specify connection settings to PostgreSQL server: `HOST`, `PORT`, `USER`, `PASSWORD`, `DB`.
+
+
+You can specify the same settings via command line arguments also:
+`--pg_host`, `--pg_port`, `--pg_user`, `--pg_password`, `--pg_db`
+
+## PostgreSQL server as data storage
+At first please create appropriate tables via [script file](create_tables.sql).
+All downloaded information will be stored into these tables.
 
 ## Use case
 Main goal is download and keep information for internal purposes, such as manual analyze,  

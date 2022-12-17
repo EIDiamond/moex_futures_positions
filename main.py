@@ -7,6 +7,7 @@ from logging.handlers import RotatingFileHandler
 
 from configuration.configuration import ProgramConfiguration
 from data_collector.data_collector_factory import DataCollectorFactory
+from data_storage_pg.pg_data_saver import DataSaverPG
 
 # the configuration file name
 CONFIG_FILE = "settings.ini"
@@ -34,10 +35,18 @@ if __name__ == '__main__':
     logger.info(f"Program arguments: {sys.argv}")
     parser = argparse.ArgumentParser()
     parser.add_argument("--contract", help="futures contract name", type=str, default="")
+
     parser.add_argument("--day", help="day of requesting date", type=int, default="0")
     parser.add_argument("--month", help="month of requesting date", type=int, default="0")
     parser.add_argument("--year", help="year of requesting date", type=int, default="0")
     parser.add_argument("--range", help="period of days from requesting date", type=int, default="0")
+
+    parser.add_argument("--pg_host", help="postgres storage host name", type=str, default="")
+    parser.add_argument("--pg_port", help="postgres storage host name", type=int, default="0")
+    parser.add_argument("--pg_user", help="postgres storage host name", type=str, default="")
+    parser.add_argument("--pg_password", help="postgres storage host name", type=str, default="")
+    parser.add_argument("--pg_db", help="postgres storage host name", type=str, default="")
+
     args = parser.parse_args()
 
     logger.info(f"Parsed arguments: {args}")
@@ -49,7 +58,12 @@ if __name__ == '__main__':
             arg_day=args.day,
             arg_month=args.month,
             arg_year=args.year,
-            arg_range=args.range
+            arg_range=args.range,
+            arg_pg_host=args.pg_host,
+            arg_pg_port=args.pg_port,
+            arg_pg_user=args.pg_user,
+            arg_pg_password=args.pg_password,
+            arg_pg_db=args.pg_db
         )
         logger.info("Configuration has been loaded")
 
@@ -57,13 +71,17 @@ if __name__ == '__main__':
                     f" date: {config.data_collection_settings.date};"
                     f" days range: {config.data_collection_settings.days_range};"
                     f" retry settings: {config.data_collection_retry_settings};"
-                    f" collector type: {config.data_collection_settings.type}")
+                    f" collector type: {config.data_collection_settings.type};"
+                    f" PG storage settings settings: {config.data_storage_pg_settings}")
 
         collector = DataCollectorFactory.new_factory(
             config.data_collection_settings.type,
             config.data_collection_retry_settings
         )
         logger.info("Collector has been loaded")
+
+        db_saver = DataSaverPG(config.data_storage_pg_settings)
+        logger.info("DB Saver has been loaded")
 
         try:
             logger.info(f"Collect results:")
@@ -76,8 +94,10 @@ if __name__ == '__main__':
             ):
                 logger.info(f"{result}")
                 print(f"{result}")
+
+                db_saver.save_open_positions(result)
         except Exception as ex:
-            logger.error(f"Collect error has been occurred: {repr(ex)}")
+            logger.error(f"Collect or save error has been occurred: {repr(ex)}")
 
     except Exception as ex:
         logger.error(f"Error has been occurred: {repr(ex)}")
