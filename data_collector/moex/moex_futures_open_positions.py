@@ -107,4 +107,7 @@ class MOEXFuturesPositionsCollector(IDataCollector):
             except Exception as ex:
                 logger.error(f"Retry exception attempt: {attempts}: {repr(ex)}")
 
+                logger.info(f"Waiting next try ...")
+                time.sleep(self.__retry_settings.interval_sec)
+
         return None
