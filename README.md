@@ -88,7 +88,7 @@ The Dockerfile is [here](Dockerfile).
 
 Run example: 
 
-sudo docker run -i image_name:tag --contract=RTS --day=1 --month=12 --year=2022 --range=2 
+sudo docker run -i image_name:tag -e "CONTRACT=CNY" -e "DAY=13" -e "MONTH=1" -e "YEAR=2023"
 
 
 ## Project change log
