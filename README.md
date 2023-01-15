@@ -24,7 +24,8 @@ $ pip install psycopg2
 2. Specify futures contract name `CONTRACT` (section `DATA_COLLECTION`)
 3. Specify requesting date: `DAY`, `MONTH`, `YEAR` (section `DATA_COLLECTION`)
 4. Specify requesting days range: `DAYS_RANGE` (section `DATA_COLLECTION`) - 
-period of days from requesting date (can be negative or zero)
+period of days from requesting date (can be negative or zero). 
+Negative value is a past days, zero value is only requesting date, positive value is a future days.
 5. Run main.py
 
 or specify the same information via command line arguments:
