@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.job.name }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.job.name }}
+    app.kubernetes.io/version: {{ .Values.job.version_label }}
+spec:
+  template:
+    metadata:
+      name: {{ .Values.pod.name }}
+      labels:
+        app.kubernetes.io/name: {{ .Values.pod.name }}
+        app.kubernetes.io/version: {{ .Values.pod.version_label }}
+    spec:
+      restartPolicy: {{ .Values.image.restartPolicy }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: CONTRACT
+              value: {{ .Values.env.contract }}
+            - name: DAY
+              value: {{ .Values.env.day }}
+            - name: MONTH
+              value: { { .Values.env.month } }
+            - name: YEAR
+              value: { { .Values.env.year } }
+            - name: RANGE
+              value: { { .Values.env.range } }
+            - name: PG_HOST
+              value: { { .Values.env.pg_host } }
+            - name: PG_PORT
+              value: { { .Values.env.pg_port } }
+            - name: PG_USER
+              value: { { .Values.env.pg_user } }
+            - name: PG_PASSWORD
+              value: { { .Values.env.pg_password } }
+            - name: PG_DB
+              value: { { .Values.env.pg_db } }
