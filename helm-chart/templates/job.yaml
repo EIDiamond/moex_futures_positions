@@ -20,17 +20,17 @@ spec:
             - name: CONTRACT
               value: {{ .Values.env.contract }}
             - name: DAY
-              value: {{ .Values.env.day }}
+              value: {{ .Values.env.day | quote }}
             - name: MONTH
-              value: {{ .Values.env.month }}
+              value: {{ .Values.env.month | quote }}
             - name: YEAR
-              value: {{ .Values.env.year }}
+              value: {{ .Values.env.year | quote }}
             - name: RANGE
-              value: {{ .Values.env.range }}
+              value: {{ .Values.env.range | quote }}
             - name: PG_HOST
               value: {{ .Values.env.pg_host }}
             - name: PG_PORT
-              value: {{ .Values.env.pg_port }}
+              value: {{ .Values.env.pg_port | quote }}
             - name: PG_USER
               value: {{ .Values.env.pg_user }}
             - name: PG_PASSWORD
