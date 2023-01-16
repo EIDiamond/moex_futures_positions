@@ -19,17 +19,17 @@ env:
   contract: ""
 
   # Requesting date
-  day: "0"
-  month: "0"
-  year: "0"
+  day: 0
+  month: 0
+  year: 0
 
   # Period of days from requesting date (can be negative or zero).
   # Negative value is a past days, zero value is only requesting date, positive value is a future days.
-  range: "0"
+  range: 0
 
   # Connection settings to PostgreSQL server
   pg_host: ""
-  pg_port: "5432"
+  pg_port: 5432
   pg_user: ""
   pg_password: ""
   pg_db: ""
