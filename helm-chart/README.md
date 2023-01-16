@@ -4,10 +4,10 @@ The chart for deployment the project on a [Kubernetes](http://kubernetes.io) clu
 
 ## Install the Chart
 
-To install the chart with the release name `moex_futures_positions` from folder `helm-chart/`:
+To install the chart with the release name `moexfuturespositions` from folder `helm-chart/`:
 
 ```console
-helm install moex_futures_positions helm-chart/
+helm install moexfuturespositions helm-chart/
 ```
 
 The command deploys on the Kubernetes cluster in the default configuration. The configuration section lists the parameters that can be configured during installation.
@@ -16,10 +16,10 @@ The command deploys on the Kubernetes cluster in the default configuration. The 
 
 ## Uninstall the Chart
 
-To uninstall/delete the `moex_futures_positions` deployment:
+To uninstall/delete the `moexfuturespositions` deployment:
 
 ```console
-helm delete --purge moex_futures_positions
+helm delete --purge moexfuturespositions
 ```
 
 The command removes nearly all the Kubernetes components associated with the chart and deletes the release.
@@ -42,7 +42,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 
 ```console
 $ # Helm 3
-helm install moex_futures_positions helm-chart/ --set env.contract=CNY
+helm install moexfuturespositions helm-chart/ --set env.contract=CNY
 ```
 
 Alternatively, a YAML file that specifies the values for the parameters can be
@@ -50,7 +50,7 @@ provided while installing the chart. For example:
 
 ```console
 $ # Helm 3
-helm install moex_futures_positions helm-chart/ -f values.yaml
+helm install moexfuturespositions helm-chart/ -f values.yaml
 ```
 
 or change the default [values.yaml](values.yaml) file. 
