@@ -90,6 +90,11 @@ Run example:
 
 sudo docker run -i image_name:tag -e "CONTRACT=CNY" -e "DAY=13" -e "MONTH=1" -e "YEAR=2023"
 
+## K8s
+[Here](helm-chart/README.md) is the chart for deployment the project on a [Kubernetes](http://kubernetes.io) cluster using 
+the [Helm](https://helm.sh) package manager.
+
+The project is configured and running as [Job](https://kubernetes.io/docs/concepts/workloads/controllers/job/). 
 
 ## Project change log
 [Here](CHANGELOG.md)
