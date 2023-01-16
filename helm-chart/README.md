@@ -1,6 +1,7 @@
 ## Introduction
 
-The chart for deployment the project on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
+The chart for deployment the project on a [Kubernetes](http://kubernetes.io) cluster using 
+the [Helm](https://helm.sh) package manager.
 
 ## Install the Chart
 
@@ -10,7 +11,8 @@ To install the chart with the release name `moexfuturespositions` from folder `h
 helm install moexfuturespositions helm-chart/
 ```
 
-The command deploys on the Kubernetes cluster in the default configuration. The configuration section lists the parameters that can be configured during installation.
+The command deploys on the Kubernetes cluster in the default configuration. The configuration section lists 
+the parameters that can be configured during installation.
 
 > **Tip**: List all releases using `helm list`
 
@@ -19,7 +21,7 @@ The command deploys on the Kubernetes cluster in the default configuration. The 
 To uninstall/delete the `moexfuturespositions` deployment:
 
 ```console
-helm delete --purge moexfuturespositions
+helm delete moexfuturespositions
 ```
 
 The command removes nearly all the Kubernetes components associated with the chart and deletes the release.

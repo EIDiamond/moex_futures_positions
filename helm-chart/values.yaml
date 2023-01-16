@@ -1,10 +1,8 @@
 job:
-  name: moex_futures_job
-  version_label: "1.0"
+  name: moex-futures-job
 
 pod:
-  name: moex_futures_pod
-  version_label: "1.0"
+  name: moex-futures-pod
 
 image:
   repository: moex_futures_positions
