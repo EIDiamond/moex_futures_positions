@@ -2,10 +2,14 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: {{ .Values.job.name }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.job.name }}
 spec:
   template:
     metadata:
       name: {{ .Values.pod.name }}
+      labels:
+        app.kubernetes.io/name: {{ .Values.pod.name }}
     spec:
       restartPolicy: {{ .Values.image.restartPolicy }}
       containers:
